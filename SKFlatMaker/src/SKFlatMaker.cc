@@ -520,10 +520,7 @@ void SKFlatMaker::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
   jet_area.clear();
   jet_partonFlavour.clear();
   jet_hadronFlavour.clear();
-  jet_CSVv2.clear();
   jet_DeepCSV.clear();
-  jet_CvsL.clear();
-  jet_CvsB.clear();
   jet_DeepFlavour_b.clear();
   jet_DeepFlavour_bb.clear();
   jet_DeepFlavour_lepb.clear();
@@ -562,10 +559,7 @@ void SKFlatMaker::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
   fatjet_area.clear();
   fatjet_partonFlavour.clear();
   fatjet_hadronFlavour.clear();
-  fatjet_CSVv2.clear();
   fatjet_DeepCSV.clear();
-  fatjet_CvsL.clear();
-  fatjet_CvsB.clear();
   fatjet_DeepFlavour_b.clear();
   fatjet_DeepFlavour_bb.clear();
   fatjet_DeepFlavour_lepb.clear();
@@ -833,10 +827,7 @@ void SKFlatMaker::beginJob()
     DYTree->Branch("jet_area", "vector<double>", &jet_area);
     DYTree->Branch("jet_partonFlavour", "vector<int>", &jet_partonFlavour);
     DYTree->Branch("jet_hadronFlavour", "vector<int>", &jet_hadronFlavour);
-    DYTree->Branch("jet_CSVv2", "vector<double>", &jet_CSVv2);
     DYTree->Branch("jet_DeepCSV", "vector<double>", &jet_DeepCSV);
-    DYTree->Branch("jet_CvsL", "vector<double>", &jet_CvsL);
-    DYTree->Branch("jet_CvsB", "vector<double>", &jet_CvsB);
     DYTree->Branch("jet_DeepFlavour_b", "vector<double>", &jet_DeepFlavour_b);
     DYTree->Branch("jet_DeepFlavour_bb", "vector<double>", &jet_DeepFlavour_bb);
     DYTree->Branch("jet_DeepFlavour_lepb", "vector<double>", &jet_DeepFlavour_lepb);
@@ -877,7 +868,6 @@ void SKFlatMaker::beginJob()
     DYTree->Branch("fatjet_area", "vector<double>", &fatjet_area);
     DYTree->Branch("fatjet_partonFlavour", "vector<int>", &fatjet_partonFlavour);
     DYTree->Branch("fatjet_hadronFlavour", "vector<int>", &fatjet_hadronFlavour);
-    DYTree->Branch("fatjet_CSVv2", "vector<double>", &fatjet_CSVv2);
     DYTree->Branch("fatjet_DeepCSV", "vector<double>", &fatjet_DeepCSV);
     DYTree->Branch("fatjet_DeepFlavour_b", "vector<double>", &fatjet_DeepFlavour_b);
     DYTree->Branch("fatjet_DeepFlavour_bb", "vector<double>", &fatjet_DeepFlavour_bb);
@@ -885,8 +875,6 @@ void SKFlatMaker::beginJob()
     DYTree->Branch("fatjet_DeepFlavour_c", "vector<double>", &fatjet_DeepFlavour_c);
     DYTree->Branch("fatjet_DeepFlavour_uds", "vector<double>", &fatjet_DeepFlavour_uds);
     DYTree->Branch("fatjet_DeepFlavour_g", "vector<double>", &fatjet_DeepFlavour_g);
-    DYTree->Branch("fatjet_CvsL", "vector<double>", &fatjet_CvsL);
-    DYTree->Branch("fatjet_CvsB", "vector<double>", &fatjet_CvsB);
     DYTree->Branch("fatjet_DeepCvsL", "vector<double>", &fatjet_DeepCvsL);
     DYTree->Branch("fatjet_DeepCvsB", "vector<double>", &fatjet_DeepCvsB);
     DYTree->Branch("fatjet_tightJetID", "vector<bool>", &fatjet_tightJetID);
@@ -2710,9 +2698,6 @@ void SKFlatMaker::fillJet(const edm::Event &iEvent)
     //==== https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation94X
     //=========================================================================
 
-    //=== CSVv2
-
-    jet_CSVv2.push_back( jets_iter->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags") );
 
     //==== DeepCSV (B)
 /*
@@ -2734,11 +2719,6 @@ void SKFlatMaker::fillJet(const edm::Event &iEvent)
     jet_DeepFlavour_c.push_back( jets_iter->bDiscriminator("pfDeepFlavourJetTags:probc"));
     jet_DeepFlavour_uds.push_back( jets_iter->bDiscriminator("pfDeepFlavourJetTags:probuds"));
     jet_DeepFlavour_g.push_back( jets_iter->bDiscriminator("pfDeepFlavourJetTags:probg"));
-
-    //==== Old Charm Tagger
-
-    jet_CvsL.push_back( jets_iter->bDiscriminator("pfCombinedCvsLJetTags") );
-    jet_CvsB.push_back( jets_iter->bDiscriminator("pfCombinedCvsBJetTags") );
 
     //==== DeepCSV charm tagger
 
@@ -3055,10 +3035,6 @@ void SKFlatMaker::fillFatJet(const edm::Event &iEvent)
     //==== https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation94X
     //=========================================================================
 
-    //=== CSVv2
-
-    fatjet_CSVv2.push_back( jets_iter->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags") );
-
     //==== DeepCSV (B)
 /*
     cout << "==============================" << endl;
@@ -3080,10 +3056,6 @@ void SKFlatMaker::fillFatJet(const edm::Event &iEvent)
     fatjet_DeepFlavour_uds.push_back( jets_iter->bDiscriminator("pfDeepFlavourJetTags:probuds"));
     fatjet_DeepFlavour_g.push_back( jets_iter->bDiscriminator("pfDeepFlavourJetTags:probg"));
 
-    //==== Old Charm Tagger
-
-    fatjet_CvsL.push_back( jets_iter->bDiscriminator("pfCombinedCvsLJetTags") );
-    fatjet_CvsB.push_back( jets_iter->bDiscriminator("pfCombinedCvsBJetTags") );
 
     //==== DeepCSV charm tagger
 
