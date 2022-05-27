@@ -66,7 +66,7 @@ if len(options.inputFiles)==0:
       options.outputFile = options.outputFile.replace(".root","_2017_DATA.root")
   elif Is2018:
     if isMC:
-      options.inputFiles.append('root://cms-xrd-global.cern.ch//store/mc/RunIISummer19UL18MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v2/70000/EA2F219D-8534-7B4D-AF83-5D91AF448EC6.root')
+      options.inputFiles.append('file:4E295BA9-D9F7-6643-B993-57789E70C0CB.root')
       options.outputFile = options.outputFile.replace(".root","_2018_MC.root")
     else:
       options.inputFiles.append('root://cms-xrd-global.cern.ch//store/data/Run2018A/SingleMuon/MINIAOD/12Nov2019_UL2018_rsb-v1/240000/FE143ADE-E9E4-3143-8754-C9ECA89F3541.root')
@@ -178,6 +178,7 @@ process.recoTree.StoreHLTObjectFlag = False ##FIXME
 # -- Objects without Corrections -- # 
 process.recoTree.Muon = cms.untracked.InputTag("slimmedMuons") # -- miniAOD -- #
 process.recoTree.Electron = cms.untracked.InputTag("slimmedElectrons") # -- miniAOD -- #
+process.recoTree.Tau = cms.untracked.InputTag("slimmedTaus") # -- miniAOD -- #                                                                                                                        
 process.recoTree.Photon = cms.untracked.InputTag("slimmedPhotons") # -- miniAOD -- #
 process.recoTree.Jet = cms.untracked.InputTag("slimmedJets") # -- miniAOD -- #
 process.recoTree.FatJet = cms.untracked.InputTag("slimmedJetsAK8")
@@ -209,6 +210,7 @@ process.recoTree.ApplyFilter = False
 # -- Store Flags -- #
 process.recoTree.StoreMuonFlag = True
 process.recoTree.StoreElectronFlag = True
+process.recoTree.StoreTauFlag = True
 process.recoTree.StorePhotonFlag = True # -- photon part should be updated! later when it is necessary -- #
 process.recoTree.StoreJetFlag = True
 process.recoTree.StoreMETFlag = True
@@ -338,11 +340,13 @@ if Is2016preVFP:
     taggingMode    = cms.bool(True)
   )
 
+
   ###########
   #### Path
   ###########
 
   process.p = cms.Path(
+
     process.egammaPostRecoSeq *
     process.jecSequence *
     process.fullPatMetSequence

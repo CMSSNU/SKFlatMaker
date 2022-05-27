@@ -35,6 +35,15 @@
 #include "DataFormats/MuonReco/interface/MuonCosmicCompatibility.h" // -- Variables shows how muon is cosmic-like
 #include "SKFlatMaker/SKFlatMaker/interface/RoccoR.h"
 
+/////////////////////
+// -- For Taus -- //
+/////////////////////
+
+#include "DataFormats/PatCandidates/interface/Tau.h"
+#include "DataFormats/TauReco/interface/PFTauDiscriminator.h"
+#include "DataFormats/TauReco/interface/PFTau.h"
+
+
 /////////////////////////
 // -- For Electrons -- //
 /////////////////////////
@@ -187,6 +196,7 @@ class SKFlatMaker : public edm::EDAnalyzer
   virtual void fillMET(const edm::Event &iEvent);            // fill MET information
   virtual void fillPhotons(const edm::Event &iEvent);
   virtual void fillMuons(const edm::Event &iEvent, const edm::EventSetup& iSetup);
+  virtual void fillTaus(const edm::Event &iEvent, const edm::EventSetup& iSetup);
   virtual void fillElectrons(const edm::Event &iEvent, const edm::EventSetup& iSetup);
   virtual void fillJet(const edm::Event &iEvent);            // fill jet and b-tagging information
   virtual void fillFatJet(const edm::Event &iEvent);            // fill jet and b-tagging information
@@ -206,6 +216,7 @@ class SKFlatMaker : public edm::EDAnalyzer
   edm::EDGetTokenT< bool > BadPFMuonDzFilter_token;
 
   edm::EDGetTokenT< std::vector<pat::Muon> >            MuonToken;
+  edm::EDGetTokenT< std::vector<pat::Tau> >            TauToken;
   edm::EDGetTokenT< edm::View<pat::Electron> >          ElectronToken;
   edm::EDGetTokenT< edm::View<pat::Photon> >            PhotonToken;
   edm::EDGetTokenT< std::vector<pat::Jet> >             JetToken;
@@ -254,6 +265,7 @@ class SKFlatMaker : public edm::EDAnalyzer
   bool theStoreHLTReportFlag;             // Yes or No to store HLT reuslts (list of triggers fired)
   bool theStoreHLTObjectFlag;
   bool theStoreMuonFlag;
+  bool theStoreTauFlag;
   bool theStoreElectronFlag;
   bool theStoreLHEFlag;
   bool theStoreGENFlag;
@@ -532,6 +544,18 @@ class SKFlatMaker : public edm::EDAnalyzer
   vector<ULong64_t> electron_pathbits;
   vector<ULong64_t> electron_filterbits;
 
+
+  //=== Tau 
+  vector<float> tau_phi;
+  vector<float> tau_eta;
+  vector<float> tau_pt;
+  vector<float> tau_mass;
+  vector<float> tau_dz;
+  vector<float> tau_dxy;
+  vector<int>   tau_decaymode;
+  vector<int>   tau_charge;
+  vector<bool>  tau_idDecayModeNewDMs;  
+  vector<unsigned int> tau_IDBit;
   //==== Muon
 
   vector<float> muon_PfChargedHadronIsoR04;
