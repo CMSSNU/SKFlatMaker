@@ -216,7 +216,7 @@ class SKFlatMaker : public edm::EDAnalyzer
   edm::EDGetTokenT< bool > BadPFMuonDzFilter_token;
 
   edm::EDGetTokenT< std::vector<pat::Muon> >            MuonToken;
-  edm::EDGetTokenT< std::vector<pat::Tau> >            TauToken;
+  edm::EDGetTokenT< std::vector<pat::Tau> >             TauToken;
   edm::EDGetTokenT< edm::View<pat::Electron> >          ElectronToken;
   edm::EDGetTokenT< edm::View<pat::Photon> >            PhotonToken;
   edm::EDGetTokenT< std::vector<pat::Jet> >             JetToken;
@@ -554,8 +554,9 @@ class SKFlatMaker : public edm::EDAnalyzer
   vector<float> tau_dxy;
   vector<int>   tau_decaymode;
   vector<int>   tau_charge;
-  vector<bool>  tau_idDecayModeNewDMs;  
   vector<unsigned int> tau_IDBit;
+  vector<bool>  tau_idDecayModeNewDMs;  
+
   //==== Muon
 
   vector<float> muon_PfChargedHadronIsoR04;
